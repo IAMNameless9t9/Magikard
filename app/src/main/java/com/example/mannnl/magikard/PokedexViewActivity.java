@@ -2,9 +2,12 @@ package com.example.mannnl.magikard;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -29,7 +32,9 @@ public class PokedexViewActivity extends AppCompatActivity {
     Button pokedexViewMode;
     Button pokedexEditMode;
     Button pokedexDeleteMode;
-
+    Boolean ViewMode = true;
+    Boolean EditMode = false;
+    Boolean DeleteMode = false;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +45,7 @@ public class PokedexViewActivity extends AppCompatActivity {
         pokedexViewMode = (Button) findViewById(R.id.pokedexViewButton);
         pokedexEditMode = (Button) findViewById(R.id.pokedexEditButton);
         pokedexDeleteMode = (Button) findViewById(R.id.pokedexDeleteButton);
+
 
 
         File file = getBaseContext().getFileStreamPath(filename);
@@ -128,6 +134,43 @@ public class PokedexViewActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void onItemClickPokedexListView(AdapterView<?> parent, View view, int pos, long id) {
+
+        System.out.println(view);
+        System.out.println(pos);
+
+    }
+
+
+
+    public void onClickViewButton (View view) {
+        pokedexViewMode.setBackgroundColor(Color.RED);
+        pokedexEditMode.setBackgroundColor(Color.LTGRAY);
+        pokedexDeleteMode.setBackgroundColor(Color.LTGRAY);
+        Boolean ViewMode = true;
+        Boolean EditMode = false;
+        Boolean DeleteMode = false;
+
+    }
+
+    public void onClickEditButton (View view) {
+        pokedexViewMode.setBackgroundColor(Color.LTGRAY);
+        pokedexEditMode.setBackgroundColor(Color.RED);
+        pokedexDeleteMode.setBackgroundColor(Color.LTGRAY);
+        Boolean ViewMode = false;
+        Boolean EditMode = true;
+        Boolean DeleteMode = false;
+    }
+
+    public void onClickDeleteButton (View view) {
+        pokedexViewMode.setBackgroundColor(Color.LTGRAY);
+        pokedexEditMode.setBackgroundColor(Color.LTGRAY);
+        pokedexDeleteMode.setBackgroundColor(Color.RED);
+        Boolean ViewMode = false;
+        Boolean EditMode = false;
+        Boolean DeleteMode = true;
     }
 
 }

@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="20"
+        android:onClick="onItemClickPokedexListView"
         />
 
     <View
@@ -43,7 +44,8 @@
             android:layout_margin="@dimen/activity_vertical_margin"
             android:textSize="@dimen/button_height"
             android:layout_gravity="center"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:onClick="onClickViewButton"/>
 
         <Button
             android:id="@+id/pokedexEditButton"
@@ -53,7 +55,8 @@
             android:layout_margin="@dimen/activity_vertical_margin"
             android:textSize="@dimen/button_height"
             android:layout_gravity="center"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:onClick="onClickEditButton"/>
 
         <Button
             android:id="@+id/pokedexDeleteButton"
@@ -63,7 +66,8 @@
             android:layout_margin="@dimen/activity_vertical_margin"
             android:textSize="@dimen/button_height"
             android:layout_gravity="center"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:onClick="onClickDeleteButton"/>
 
     </LinearLayout>
 
