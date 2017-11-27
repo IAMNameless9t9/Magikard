@@ -23,4 +23,5 @@
     <string name="pokedexViewButton">View</string>
     <string name="pokedexEditButton">Edit</string>
     <string name="pokedexDeleteButton">Delete</string>
+    <string name="pokedexViewInstructions">Tap a card to view its information and add it to a deck.</string>
 </resources>

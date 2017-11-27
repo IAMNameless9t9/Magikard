@@ -8,4 +8,5 @@
     <dimen name="header_height">48sp</dimen>
     <dimen name="editTextHeight">36sp</dimen>
     <dimen name="button_height">28sp</dimen>
+    <dimen name="smallTextHeight">16sp</dimen>
 </resources>

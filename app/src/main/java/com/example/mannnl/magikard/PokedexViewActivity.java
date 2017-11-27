@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -24,7 +25,6 @@ import java.util.ArrayList;
 
 public class PokedexViewActivity extends AppCompatActivity {
 
-
     ListView pokedexListView;
     ArrayList<PokemonCard> cards = new ArrayList<>();
     private String filename = "pokemonCards.txt";
@@ -32,9 +32,10 @@ public class PokedexViewActivity extends AppCompatActivity {
     Button pokedexViewMode;
     Button pokedexEditMode;
     Button pokedexDeleteMode;
-    Boolean ViewMode = true;
-    Boolean EditMode = false;
-    Boolean DeleteMode = false;
+    Boolean ViewMode;
+    Boolean EditMode;
+    Boolean DeleteMode;
+    TextView instructions;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +46,14 @@ public class PokedexViewActivity extends AppCompatActivity {
         pokedexViewMode = (Button) findViewById(R.id.pokedexViewButton);
         pokedexEditMode = (Button) findViewById(R.id.pokedexEditButton);
         pokedexDeleteMode = (Button) findViewById(R.id.pokedexDeleteButton);
+        instructions = (TextView) findViewById(R.id.pokedexInstructions);
 
-
+        //Initialises Button States
+        pokedexViewMode.setBackgroundColor(Color.RED);
+        pokedexEditMode.setBackgroundColor(Color.LTGRAY);
+        pokedexDeleteMode.setBackgroundColor(Color.LTGRAY);
+        instructions.setText("Tap a card to view its information and add it to a deck.");
+        //-----------------
 
         File file = getBaseContext().getFileStreamPath(filename);
         if(file.exists())
@@ -88,7 +95,40 @@ public class PokedexViewActivity extends AppCompatActivity {
 
         pokedexListView.setAdapter(pokedexAdapter);
 
+
+        pokedexListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                String name = cards.get(position).getmName();
+                String HP = cards.get(position).getmHitPoints();
+                String type = cards.get(position).getmType();
+
+                if (ViewMode) {
+
+
+                }
+                if (EditMode) {
+
+                    Intent intent = new Intent(PokedexViewActivity.this, NewCardActivity.class);
+                    intent.putExtra("name", name);
+                    intent.putExtra("HP", HP);
+                    intent.putExtra("type", type);
+
+                    startActivity(intent);
+
+                }
+                if (DeleteMode) {
+
+
+
+                }
+            }
+        });
     }
+
+
 
     public void writeToFile(String text, Context ctx) {
         FileOutputStream outputStream;
@@ -136,22 +176,14 @@ public class PokedexViewActivity extends AppCompatActivity {
         }
     }
 
-    public void onItemClickPokedexListView(AdapterView<?> parent, View view, int pos, long id) {
-
-        System.out.println(view);
-        System.out.println(pos);
-
-    }
-
-
-
     public void onClickViewButton (View view) {
         pokedexViewMode.setBackgroundColor(Color.RED);
         pokedexEditMode.setBackgroundColor(Color.LTGRAY);
         pokedexDeleteMode.setBackgroundColor(Color.LTGRAY);
-        Boolean ViewMode = true;
-        Boolean EditMode = false;
-        Boolean DeleteMode = false;
+        ViewMode = true;
+        EditMode = false;
+        DeleteMode = false;
+        instructions.setText("Tap a card to view its information and add it to a deck.");
 
     }
 
@@ -159,18 +191,22 @@ public class PokedexViewActivity extends AppCompatActivity {
         pokedexViewMode.setBackgroundColor(Color.LTGRAY);
         pokedexEditMode.setBackgroundColor(Color.RED);
         pokedexDeleteMode.setBackgroundColor(Color.LTGRAY);
-        Boolean ViewMode = false;
-        Boolean EditMode = true;
-        Boolean DeleteMode = false;
+        ViewMode = false;
+        EditMode = true;
+        DeleteMode = false;
+        instructions.setText("Tap a card to change its information.");
+
     }
 
     public void onClickDeleteButton (View view) {
         pokedexViewMode.setBackgroundColor(Color.LTGRAY);
         pokedexEditMode.setBackgroundColor(Color.LTGRAY);
         pokedexDeleteMode.setBackgroundColor(Color.RED);
-        Boolean ViewMode = false;
-        Boolean EditMode = false;
-        Boolean DeleteMode = true;
+        ViewMode = false;
+        EditMode = false;
+        DeleteMode = true;
+        instructions.setText("Tap the cards to remove them, hold DELETE to confirm.");
+
     }
 
 }

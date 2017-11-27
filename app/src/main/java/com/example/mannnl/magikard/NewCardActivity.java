@@ -30,6 +30,15 @@ public class NewCardActivity extends AppCompatActivity {
         newPokemonCardHPEditText = (EditText) findViewById(R.id.newPokemonCardHP);
         newPokemonCardTypeEditText = (EditText) findViewById(R.id.newPokemonCardType);
 
+        Intent in = this.getIntent();
+        String name = in.getStringExtra("name");
+        String HP = in.getStringExtra("HP");
+        String type = in.getStringExtra("type");
+
+        newPokemonCardNameEditText.setText(name);
+        newPokemonCardHPEditText.setText(HP);
+        newPokemonCardTypeEditText.setText(type);
+
         submitButton = (Button) findViewById(R.id.newPokemonCardSubmitButton);
         submitButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
@@ -51,6 +60,10 @@ public class NewCardActivity extends AppCompatActivity {
                     intent.putExtra("name", name);
                     intent.putExtra("HP", HP);
                     intent.putExtra("type", type);
+
+                    newPokemonCardNameEditText.setText("");
+                    newPokemonCardHPEditText.setText("");
+                    newPokemonCardTypeEditText.setText("");
 
                     startActivity(intent);
                 }
