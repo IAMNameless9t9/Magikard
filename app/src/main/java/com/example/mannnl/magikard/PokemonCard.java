@@ -10,10 +10,13 @@ public class PokemonCard {
     private String mHitPoints;
     private String mType;
 
-    public PokemonCard(String Name, String HitPoints, String Type){
+    private boolean delete;
+
+    public PokemonCard(String Name, String HitPoints, String Type, boolean delete){
         this.mName = Name;
         this.mHitPoints = HitPoints;
         this.mType = Type;
+        this.delete = false;
     }
 
     public String getmName() {
@@ -39,4 +42,8 @@ public class PokemonCard {
     public void setmType(String mType) {
         this.mType = mType;
     }
+
+    public boolean isDelete() { return delete; }
+
+    public void setDelete() { this.delete = !delete; }
 }

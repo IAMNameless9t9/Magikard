@@ -76,18 +76,20 @@ public class PokedexViewActivity extends AppCompatActivity {
         saveData = "";
 
         if(name != null) {
-            cards.add(new PokemonCard(name, HP, type));
+            cards.add(new PokemonCard(name, HP, type, false));
         }
         for (int i = 0; i < cards.size(); i++) {
             if (cards.size() > 0) {
                 if (!cards.get(i).getmName().equals(null)) {
                     saveData += cards.get(i).getmName() + "/" +
                             cards.get(i).getmHitPoints() + "/" +
-                            cards.get(i).getmType() + "/";
+                            cards.get(i).getmType() + "/" +
+                            cards.get(i).isDelete() + "/";
                 }
             }
         }
 
+        System.out.println(saveData);
         writeToFile(saveData, getApplicationContext());
         loadFromFile(filename, getApplicationContext());
 
@@ -111,6 +113,7 @@ public class PokedexViewActivity extends AppCompatActivity {
                 }
                 if (EditMode) {
 
+                    cards.get(position).setDelete();
                     Intent intent = new Intent(PokedexViewActivity.this, NewCardActivity.class);
                     intent.putExtra("name", name);
                     intent.putExtra("HP", HP);
@@ -121,8 +124,24 @@ public class PokedexViewActivity extends AppCompatActivity {
                 }
                 if (DeleteMode) {
 
+                    cards.get(position).setDelete();
+                    if(cards.get(position).isDelete()) {
+                        parent.getChildAt(position).setBackgroundColor(Color.RED);
+                    } else {
+                        parent.getChildAt(position).setBackgroundColor(Color.WHITE);
+                    }
+                    pokedexDeleteMode.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            cards.clear();
 
+                            //TODO: Y Cards No Delete!
 
+                            Intent intent = getIntent();
+                            startActivity(intent);
+                            return true;
+                        }
+                    });
                 }
             }
         });
@@ -164,10 +183,15 @@ public class PokedexViewActivity extends AppCompatActivity {
                     String type = str.substring(0, str.indexOf("/"));
                     str = str.substring(str.indexOf("/") + 1);
 
-                    if (name.equals("null")) {
-                    }else{
-                        cards.add(new PokemonCard(name, HP, type));
-                    }
+                    String strDelete = str.substring(0, str.indexOf("/"));
+                    str = str.substring(str.indexOf("/") + 1);
+                    Boolean delete;
+
+                    if( strDelete.equals("false")) {
+                        delete = false;
+                        if (!name.equals("null")) {
+                            cards.add(new PokemonCard(name, HP, type, delete));
+                    } }
                 }
             }
            isr.close();
