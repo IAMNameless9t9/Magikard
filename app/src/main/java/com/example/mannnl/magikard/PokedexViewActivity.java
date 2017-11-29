@@ -65,7 +65,6 @@ public class PokedexViewActivity extends AppCompatActivity {
 
         }
 
-
         loadFromFile(filename, getApplicationContext());
 
         Intent in = this.getIntent();
@@ -93,6 +92,10 @@ public class PokedexViewActivity extends AppCompatActivity {
         writeToFile(saveData, getApplicationContext());
         loadFromFile(filename, getApplicationContext());
 
+        getIntent().removeExtra("name");
+        getIntent().removeExtra("HP");
+        getIntent().removeExtra("type");
+
         PokedexAdapter pokedexAdapter = new PokedexAdapter(this, R.layout.item_pokemon_card, cards);
 
         pokedexListView.setAdapter(pokedexAdapter);
@@ -114,6 +117,22 @@ public class PokedexViewActivity extends AppCompatActivity {
                 if (EditMode) {
 
                     cards.get(position).setDelete();
+
+                    saveData = "";
+
+                    for (int i = 0; i < cards.size(); i++) {
+                        String del = String.valueOf(cards.get(i).isDelete());
+                        if (cards.size() > 0 && !cards.get(i).getmName().equals(null) && del.equals("false")) {
+                            saveData += cards.get(i).getmName() + "/" +
+                                    cards.get(i).getmHitPoints() + "/" +
+                                    cards.get(i).getmType() + "/" +
+                                    cards.get(i).isDelete() + "/";
+                        }
+                    }
+
+                    writeToFile(saveData, getApplicationContext());
+                    loadFromFile(filename, getApplicationContext());
+
                     Intent intent = new Intent(PokedexViewActivity.this, NewCardActivity.class);
                     intent.putExtra("name", name);
                     intent.putExtra("HP", HP);
@@ -130,12 +149,25 @@ public class PokedexViewActivity extends AppCompatActivity {
                     } else {
                         parent.getChildAt(position).setBackgroundColor(Color.WHITE);
                     }
+
                     pokedexDeleteMode.setOnLongClickListener(new View.OnLongClickListener() {
                         @Override
                         public boolean onLongClick(View v) {
-                            cards.clear();
 
-                            //TODO: Y Cards No Delete!
+                            saveData = "";
+
+                            for (int i = 0; i < cards.size(); i++) {
+                                String del = String.valueOf(cards.get(i).isDelete());
+                                if (cards.size() > 0 && !cards.get(i).getmName().equals(null) && del.equals("false")) {
+                                        saveData += cards.get(i).getmName() + "/" +
+                                                cards.get(i).getmHitPoints() + "/" +
+                                                cards.get(i).getmType() + "/" +
+                                                cards.get(i).isDelete() + "/";
+                                    }
+                                }
+
+                            writeToFile(saveData, getApplicationContext());
+                            loadFromFile(filename, getApplicationContext());
 
                             Intent intent = getIntent();
                             startActivity(intent);
