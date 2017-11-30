@@ -9,15 +9,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by mannnl on 11/14/2017.
- */
+ class PokedexAdapter extends ArrayAdapter<PokemonCard> {
 
-public class PokedexAdapter extends ArrayAdapter<PokemonCard> {
+    private ArrayList<PokemonCard> pokedexList = new ArrayList<>();
 
-    ArrayList<PokemonCard> pokedexList = new ArrayList<>();
-
-    public PokedexAdapter(Context context, int textViewResourceId, ArrayList<PokemonCard> cards) {
+    PokedexAdapter(Context context, int textViewResourceId, ArrayList<PokemonCard> cards) {
         super(context, textViewResourceId, cards);
         pokedexList = cards;
     }

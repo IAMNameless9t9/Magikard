@@ -24,4 +24,8 @@
     <string name="pokedexEditButton">Edit</string>
     <string name="pokedexDeleteButton">Delete</string>
     <string name="pokedexViewInstructions">Tap a card to view its information and add it to a deck.</string>
+    <string name="HP">HP</string>
+    <string name="viewModeHint">\"Tap a card to view its information and add it to a deck.\"</string>
+    <string name="editModeHint">\"Tap a card to change its information.\"</string>
+    <string name="deleteModeHint">\"Tap the cards to remove them, hold DELETE to confirm.\"</string>
 </resources>

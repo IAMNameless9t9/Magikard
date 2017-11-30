@@ -9,10 +9,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/**
- * Created by mannnl on 10/27/2017.
- */
-
 public class NewCardActivity extends AppCompatActivity {
 
     EditText newPokemonCardNameEditText;

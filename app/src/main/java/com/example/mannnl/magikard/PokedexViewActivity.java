@@ -19,10 +19,6 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-/**
- * Created by mannnl on 11/1/2017.
- */
-
 public class PokedexViewActivity extends AppCompatActivity {
 
     ListView pokedexListView;
@@ -32,9 +28,9 @@ public class PokedexViewActivity extends AppCompatActivity {
     Button pokedexViewMode;
     Button pokedexEditMode;
     Button pokedexDeleteMode;
-    Boolean ViewMode;
-    Boolean EditMode;
-    Boolean DeleteMode;
+    Boolean ViewMode = true;
+    Boolean EditMode = true;
+    Boolean DeleteMode = true;
     TextView instructions;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +48,7 @@ public class PokedexViewActivity extends AppCompatActivity {
         pokedexViewMode.setBackgroundColor(Color.RED);
         pokedexEditMode.setBackgroundColor(Color.LTGRAY);
         pokedexDeleteMode.setBackgroundColor(Color.LTGRAY);
-        instructions.setText("Tap a card to view its information and add it to a deck.");
+        instructions.setText(R.string.viewModeHint);
         //-----------------
 
         File file = getBaseContext().getFileStreamPath(filename);
@@ -79,7 +75,7 @@ public class PokedexViewActivity extends AppCompatActivity {
         }
         for (int i = 0; i < cards.size(); i++) {
             if (cards.size() > 0) {
-                if (!cards.get(i).getmName().equals(null)) {
+                if (!cards.get(i).getmName().equals("")) {
                     saveData += cards.get(i).getmName() + "/" +
                             cards.get(i).getmHitPoints() + "/" +
                             cards.get(i).getmType() + "/" +
@@ -112,6 +108,12 @@ public class PokedexViewActivity extends AppCompatActivity {
 
                 if (ViewMode) {
 
+                    Intent intent = new Intent(PokedexViewActivity.this, PokemonCardViewActivity.class);
+                    intent.putExtra("name", name);
+                    intent.putExtra("HP", HP);
+                    intent.putExtra("type", type);
+
+                    startActivity(intent);
 
                 }
                 if (EditMode) {
@@ -122,7 +124,7 @@ public class PokedexViewActivity extends AppCompatActivity {
 
                     for (int i = 0; i < cards.size(); i++) {
                         String del = String.valueOf(cards.get(i).isDelete());
-                        if (cards.size() > 0 && !cards.get(i).getmName().equals(null) && del.equals("false")) {
+                        if (cards.size() > 0 && !cards.get(i).getmName().equals("") && del.equals("false")) {
                             saveData += cards.get(i).getmName() + "/" +
                                     cards.get(i).getmHitPoints() + "/" +
                                     cards.get(i).getmType() + "/" +
@@ -158,7 +160,7 @@ public class PokedexViewActivity extends AppCompatActivity {
 
                             for (int i = 0; i < cards.size(); i++) {
                                 String del = String.valueOf(cards.get(i).isDelete());
-                                if (cards.size() > 0 && !cards.get(i).getmName().equals(null) && del.equals("false")) {
+                                if (cards.size() > 0 && !cards.get(i).getmName().equals("") && del.equals("false")) {
                                         saveData += cards.get(i).getmName() + "/" +
                                                 cards.get(i).getmHitPoints() + "/" +
                                                 cards.get(i).getmType() + "/" +
@@ -197,7 +199,6 @@ public class PokedexViewActivity extends AppCompatActivity {
 
     public void loadFromFile(String fileName, Context ctx){
         cards.clear();
-        int i = 0;
         try {
             FileInputStream fis = ctx.openFileInput(fileName);
             InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
@@ -217,12 +218,10 @@ public class PokedexViewActivity extends AppCompatActivity {
 
                     String strDelete = str.substring(0, str.indexOf("/"));
                     str = str.substring(str.indexOf("/") + 1);
-                    Boolean delete;
 
                     if( strDelete.equals("false")) {
-                        delete = false;
                         if (!name.equals("null")) {
-                            cards.add(new PokemonCard(name, HP, type, delete));
+                            cards.add(new PokemonCard(name, HP, type, false));
                     } }
                 }
             }
@@ -239,7 +238,7 @@ public class PokedexViewActivity extends AppCompatActivity {
         ViewMode = true;
         EditMode = false;
         DeleteMode = false;
-        instructions.setText("Tap a card to view its information and add it to a deck.");
+        instructions.setText(R.string.viewModeHint);
 
     }
 
@@ -250,7 +249,7 @@ public class PokedexViewActivity extends AppCompatActivity {
         ViewMode = false;
         EditMode = true;
         DeleteMode = false;
-        instructions.setText("Tap a card to change its information.");
+        instructions.setText(R.string.editModeHint);
 
     }
 
@@ -261,7 +260,7 @@ public class PokedexViewActivity extends AppCompatActivity {
         ViewMode = false;
         EditMode = false;
         DeleteMode = true;
-        instructions.setText("Tap the cards to remove them, hold DELETE to confirm.");
+        instructions.setText(R.string.deleteModeHint);
 
     }
 
