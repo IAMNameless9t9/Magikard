@@ -172,13 +172,16 @@ public class PokedexViewActivity extends AppCompatActivity {
                             loadFromFile(filename, getApplicationContext());
 
                             Intent intent = getIntent();
+                            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                             return true;
+
                         }
                     });
                 }
             }
         });
+
     }
 
 
