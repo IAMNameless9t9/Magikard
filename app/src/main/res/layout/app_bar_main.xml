@@ -23,6 +23,4 @@
 
     <include layout="@layout/content_main" />
 
-    <!-- TODO: extend drawer into all activities -->
-
 </android.support.design.widget.CoordinatorLayout>

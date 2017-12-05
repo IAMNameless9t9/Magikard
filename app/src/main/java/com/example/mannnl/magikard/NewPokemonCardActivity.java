@@ -6,10 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-public class NewCardActivity extends AppCompatActivity {
+public class NewPokemonCardActivity extends AppCompatActivity {
 
     EditText newPokemonCardNameEditText;
     EditText newPokemonCardHPEditText;
@@ -21,11 +20,11 @@ public class NewCardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_card);
 
-
         newPokemonCardNameEditText = (EditText) findViewById(R.id.newPokemonCardName);
         newPokemonCardHPEditText = (EditText) findViewById(R.id.newPokemonCardHP);
         newPokemonCardTypeEditText = (EditText) findViewById(R.id.newPokemonCardType);
 
+        //Coming back from PokedexViewActivity in edit mode
         Intent in = this.getIntent();
         String name = in.getStringExtra("name");
         String HP = in.getStringExtra("HP");
@@ -35,6 +34,7 @@ public class NewCardActivity extends AppCompatActivity {
         newPokemonCardHPEditText.setText(HP);
         newPokemonCardTypeEditText.setText(type);
 
+        //Send information to PokedexViewActivity
         submitButton = (Button) findViewById(R.id.newPokemonCardSubmitButton);
         submitButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
@@ -44,7 +44,7 @@ public class NewCardActivity extends AppCompatActivity {
         String type = newPokemonCardTypeEditText.getText().toString().trim();
 
                 if (name.length() == 0 || HP.length() == 0 || type.length() == 0 ) {
-                    Toast.makeText(NewCardActivity.this,
+                    Toast.makeText(NewPokemonCardActivity.this,
                             "Please fill out all information", Toast.LENGTH_SHORT).show();
 
                     // TODO: allow user to leave certain fields empty
@@ -52,7 +52,7 @@ public class NewCardActivity extends AppCompatActivity {
 
                 }else {
 
-                    Intent intent = new Intent(NewCardActivity.this, PokedexViewActivity.class);
+                    Intent intent = new Intent(NewPokemonCardActivity.this, PokedexViewActivity.class);
                     intent.putExtra("name", name);
                     intent.putExtra("HP", HP);
                     intent.putExtra("type", type);
@@ -66,4 +66,5 @@ public class NewCardActivity extends AppCompatActivity {
             }
         });
     }
+
 }

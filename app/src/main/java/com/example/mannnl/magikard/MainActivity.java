@@ -3,6 +3,7 @@ package com.example.mannnl.magikard;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,7 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+    implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +71,9 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_new_card) {
 
-            Intent intent = new Intent(this, NewCardActivity.class);
-            startActivity(intent);
+            newCardType();
+            //Intent intent = new Intent(this, NewPokemonCardActivity.class);
+            //startActivity(intent);
 
         } else if (id == R.id.nav_pokedex) {
 
@@ -87,5 +89,11 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    //Dialog Fragment for New Card Type
+    public void newCardType() {
+        DialogFragment newFragment = new NewCardTypeAlertDialog();
+        newFragment.show(getSupportFragmentManager(), "newCardType");
     }
 }

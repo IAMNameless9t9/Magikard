@@ -18,14 +18,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NewCardActivity"
+        <activity android:name=".NewPokemonCardActivity"
             android:noHistory="true"
+            android:parentActivityName=".MainActivity"
             />
         <activity android:name=".PokedexViewActivity"
             android:noHistory="true"
+            android:parentActivityName=".MainActivity"
             />
         <activity android:name=".PokemonCardViewActivity"
             android:noHistory="true"
+            android:parentActivityName=".MainActivity"
             />
         <meta-data
             android:name="com.google.android.gms.version"

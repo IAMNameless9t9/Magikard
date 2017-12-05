@@ -28,4 +28,5 @@
     <string name="viewModeHint">\"Tap a card to view its information and add it to a deck.\"</string>
     <string name="editModeHint">\"Tap a card to change its information.\"</string>
     <string name="deleteModeHint">\"Tap the cards to remove them, hold DELETE to confirm.\"</string>
+    <string name="dialogNewCard">What Type of Card?</string>
 </resources>

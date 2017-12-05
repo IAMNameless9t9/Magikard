@@ -49,8 +49,8 @@ public class PokedexViewActivity extends AppCompatActivity {
         pokedexEditMode.setBackgroundColor(Color.LTGRAY);
         pokedexDeleteMode.setBackgroundColor(Color.LTGRAY);
         instructions.setText(R.string.viewModeHint);
-        //-----------------
 
+        //
         File file = getBaseContext().getFileStreamPath(filename);
         if(file.exists())
         {
@@ -63,11 +63,13 @@ public class PokedexViewActivity extends AppCompatActivity {
 
         loadFromFile(filename, getApplicationContext());
 
+        //Handles incoming information from NewPokemonCardActivity
         Intent in = this.getIntent();
         String name = in.getStringExtra("name");
         String HP = in.getStringExtra("HP");
         String type = in.getStringExtra("type");
 
+        //Prepares to save information
         saveData = "";
 
         if(name != null) {
@@ -84,7 +86,6 @@ public class PokedexViewActivity extends AppCompatActivity {
             }
         }
 
-        System.out.println(saveData);
         writeToFile(saveData, getApplicationContext());
         loadFromFile(filename, getApplicationContext());
 
@@ -92,11 +93,12 @@ public class PokedexViewActivity extends AppCompatActivity {
         getIntent().removeExtra("HP");
         getIntent().removeExtra("type");
 
+        //Sets the list view to the array
         PokedexAdapter pokedexAdapter = new PokedexAdapter(this, R.layout.item_pokemon_card, cards);
 
         pokedexListView.setAdapter(pokedexAdapter);
 
-
+        //Handles click on items in the list
         pokedexListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -106,6 +108,7 @@ public class PokedexViewActivity extends AppCompatActivity {
                 String HP = cards.get(position).getmHitPoints();
                 String type = cards.get(position).getmType();
 
+                //Handles clicks dependent on mode
                 if (ViewMode) {
 
                     Intent intent = new Intent(PokedexViewActivity.this, PokemonCardViewActivity.class);
@@ -135,7 +138,7 @@ public class PokedexViewActivity extends AppCompatActivity {
                     writeToFile(saveData, getApplicationContext());
                     loadFromFile(filename, getApplicationContext());
 
-                    Intent intent = new Intent(PokedexViewActivity.this, NewCardActivity.class);
+                    Intent intent = new Intent(PokedexViewActivity.this, NewPokemonCardActivity.class);
                     intent.putExtra("name", name);
                     intent.putExtra("HP", HP);
                     intent.putExtra("type", type);
