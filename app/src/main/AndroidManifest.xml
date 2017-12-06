@@ -22,7 +22,7 @@
             android:noHistory="true"
             android:parentActivityName=".MainActivity"
             />
-        <activity android:name=".PokedexViewActivity"
+        <activity android:name=".PokemonLibViewActivity"
             android:noHistory="true"
             android:parentActivityName=".MainActivity"
             />
@@ -30,9 +30,23 @@
             android:noHistory="true"
             android:parentActivityName=".MainActivity"
             />
+        <activity android:name=".NewTrainerCardActivity"
+            android:noHistory="true"
+            android:parentActivityName=".MainActivity"
+            />
+        <activity android:name=".TrainerLibViewActivity"
+            android:noHistory="true"
+            android:parentActivityName=".MainActivity"
+            />
+        <activity android:name=".TrainerCardViewActivity"
+            android:noHistory="true"
+            android:parentActivityName=".MainActivity"
+            />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
     </application>
+
+    <!-- TODO: Set the perants for card view activities to their pokedex -->
 
 </manifest>

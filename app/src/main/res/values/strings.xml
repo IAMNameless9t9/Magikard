@@ -14,9 +14,9 @@
     <string name="openDecklists">Deck Lists</string>
     <string name="navDrawer1">Create</string>
     <string name="navDrawer2">View</string>
-    <string name="newCardHeader">New Pokemon Card</string>
+    <string name="newCardHeader">New Card</string>
     <string name="newPokemonCardHP">Hit Points</string>
-    <string name="newPokemonCardName">Name</string>
+    <string name="newCardName">Name</string>
     <string name="newPokemonCardType">Type</string>
     <string name="newPokemonCardSubmitButton">Submit</string>
     <string name="pokedexViewHeader">Pokedex</string>
@@ -29,4 +29,6 @@
     <string name="editModeHint">\"Tap a card to change its information.\"</string>
     <string name="deleteModeHint">\"Tap the cards to remove them, hold DELETE to confirm.\"</string>
     <string name="dialogNewCard">What Type of Card?</string>
+    <string name="newTrainerCardType">Type</string>
+    <string name="newTrainerCardDesc">Description</string>
 </resources>

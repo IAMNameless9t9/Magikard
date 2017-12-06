@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_pokedex) {
 
-            Intent intent = new Intent(this, PokedexViewActivity.class);
+            Intent intent = new Intent(this, PokemonLibViewActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_new_deck) {

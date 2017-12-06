@@ -19,7 +19,7 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class PokedexViewActivity extends AppCompatActivity {
+public class PokemonLibViewActivity extends AppCompatActivity {
 
     ListView pokedexListView;
     ArrayList<PokemonCard> cards = new ArrayList<>();
@@ -29,13 +29,13 @@ public class PokedexViewActivity extends AppCompatActivity {
     Button pokedexEditMode;
     Button pokedexDeleteMode;
     Boolean ViewMode = true;
-    Boolean EditMode = true;
-    Boolean DeleteMode = true;
+    Boolean EditMode = false;
+    Boolean DeleteMode = false;
     TextView instructions;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pokedex_view);
+        setContentView(R.layout.activity_pokemon_lib_view);
 
 
         pokedexListView = (ListView) findViewById(R.id.pokedexListView);
@@ -94,9 +94,9 @@ public class PokedexViewActivity extends AppCompatActivity {
         getIntent().removeExtra("type");
 
         //Sets the list view to the array
-        PokedexAdapter pokedexAdapter = new PokedexAdapter(this, R.layout.item_pokemon_card, cards);
+        PokemonCardPokedexAdapter pokemonCardPokedexAdapter = new PokemonCardPokedexAdapter(this, R.layout.item_pokemon_card, cards);
 
-        pokedexListView.setAdapter(pokedexAdapter);
+        pokedexListView.setAdapter(pokemonCardPokedexAdapter);
 
         //Handles click on items in the list
         pokedexListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -111,7 +111,7 @@ public class PokedexViewActivity extends AppCompatActivity {
                 //Handles clicks dependent on mode
                 if (ViewMode) {
 
-                    Intent intent = new Intent(PokedexViewActivity.this, PokemonCardViewActivity.class);
+                    Intent intent = new Intent(PokemonLibViewActivity.this, PokemonCardViewActivity.class);
                     intent.putExtra("name", name);
                     intent.putExtra("HP", HP);
                     intent.putExtra("type", type);
@@ -138,7 +138,7 @@ public class PokedexViewActivity extends AppCompatActivity {
                     writeToFile(saveData, getApplicationContext());
                     loadFromFile(filename, getApplicationContext());
 
-                    Intent intent = new Intent(PokedexViewActivity.this, NewPokemonCardActivity.class);
+                    Intent intent = new Intent(PokemonLibViewActivity.this, NewPokemonCardActivity.class);
                     intent.putExtra("name", name);
                     intent.putExtra("HP", HP);
                     intent.putExtra("type", type);

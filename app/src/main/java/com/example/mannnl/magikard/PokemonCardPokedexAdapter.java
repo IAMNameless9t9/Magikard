@@ -9,11 +9,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
- class PokedexAdapter extends ArrayAdapter<PokemonCard> {
+ class PokemonCardPokedexAdapter extends ArrayAdapter<PokemonCard> {
 
     private ArrayList<PokemonCard> pokedexList = new ArrayList<>();
 
-    PokedexAdapter(Context context, int textViewResourceId, ArrayList<PokemonCard> cards) {
+    PokemonCardPokedexAdapter(Context context, int textViewResourceId, ArrayList<PokemonCard> cards) {
         super(context, textViewResourceId, cards);
         pokedexList = cards;
     }

@@ -7,9 +7,6 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
-/**
- * Created by mannnl on 12/5/2017.
- */
 
 public class NewCardTypeAlertDialog extends DialogFragment {
     @Override
@@ -19,14 +16,17 @@ public class NewCardTypeAlertDialog extends DialogFragment {
         builder.setTitle(R.string.dialogNewCard)
         .setItems(R.array.option_array, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
+                if(which == 0) {
+                    Intent intent = new Intent(getContext(), NewPokemonCardActivity.class);
+                    startActivity(intent);
+                }
                 if(which == 1) {
-                    startActivity(new Intent(getBaseContext(),NewPokemonCardActivity.class));
+                    Intent intent = new Intent(getContext(), NewTrainerCardActivity.class);
+                    startActivity(intent);
                 }
                 if(which == 2) {
-
-                }
-                if(which == 3) {
-
+                    Intent intent = new Intent(getContext(), NewEnergyCardActivity.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -34,4 +34,5 @@ public class NewCardTypeAlertDialog extends DialogFragment {
         // Create the AlertDialog object and return it
         return builder.create();
     }
+
 }

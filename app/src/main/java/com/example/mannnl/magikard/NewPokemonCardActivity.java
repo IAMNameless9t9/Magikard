@@ -18,13 +18,13 @@ public class NewPokemonCardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_card);
+        setContentView(R.layout.activity_pokemon_new_card);
 
         newPokemonCardNameEditText = (EditText) findViewById(R.id.newPokemonCardName);
         newPokemonCardHPEditText = (EditText) findViewById(R.id.newPokemonCardHP);
         newPokemonCardTypeEditText = (EditText) findViewById(R.id.newPokemonCardType);
 
-        //Coming back from PokedexViewActivity in edit mode
+        //Coming back from PokemonLibViewActivity in edit mode
         Intent in = this.getIntent();
         String name = in.getStringExtra("name");
         String HP = in.getStringExtra("HP");
@@ -34,7 +34,7 @@ public class NewPokemonCardActivity extends AppCompatActivity {
         newPokemonCardHPEditText.setText(HP);
         newPokemonCardTypeEditText.setText(type);
 
-        //Send information to PokedexViewActivity
+        //Send information to PokemonLibViewActivity
         submitButton = (Button) findViewById(R.id.newPokemonCardSubmitButton);
         submitButton.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
@@ -52,7 +52,7 @@ public class NewPokemonCardActivity extends AppCompatActivity {
 
                 }else {
 
-                    Intent intent = new Intent(NewPokemonCardActivity.this, PokedexViewActivity.class);
+                    Intent intent = new Intent(NewPokemonCardActivity.this, PokemonLibViewActivity.class);
                     intent.putExtra("name", name);
                     intent.putExtra("HP", HP);
                     intent.putExtra("type", type);
