@@ -19,11 +19,11 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class PokemonLibViewActivity extends AppCompatActivity {
+public class EnergyLibViewActivity extends AppCompatActivity {
 
     ListView pokedexListView;
-    ArrayList<PokemonCard> cards = new ArrayList<>();
-    private String filename = "pokemonCards.txt";
+    ArrayList<EnergyCard> cards = new ArrayList<>();
+    private String filename = "energyCards.txt";
     private String saveData;
     Button pokedexViewMode;
     Button pokedexEditMode;
@@ -66,37 +66,36 @@ public class PokemonLibViewActivity extends AppCompatActivity {
         //Handles incoming information from NewPokemonCardActivity
         Intent in = this.getIntent();
         String name = in.getStringExtra("name");
-        String HP = in.getStringExtra("HP");
-        String type = in.getStringExtra("type");
+        String desc = in.getStringExtra("desc");
 
         //Prepares to save information
         saveData = "";
 
         if(name != null) {
-            cards.add(new PokemonCard(name, HP, type, false));
+            cards.add(new EnergyCard(name, desc, false));
         }
         for (int i = 0; i < cards.size(); i++) {
             if (cards.size() > 0) {
                 if (!cards.get(i).getmName().equals("")) {
                     saveData += cards.get(i).getmName() + "/" +
-                            cards.get(i).getmHitPoints() + "/" +
-                            cards.get(i).getmType() + "/" +
+                            cards.get(i).getmDesc() + "/" +
                             cards.get(i).isDelete() + "/";
                 }
             }
         }
 
+        System.out.println("HEY! " + saveData);
+
         writeToFile(saveData, getApplicationContext());
         loadFromFile(filename, getApplicationContext());
 
         getIntent().removeExtra("name");
-        getIntent().removeExtra("HP");
-        getIntent().removeExtra("type");
+        getIntent().removeExtra("desc");
 
         //Sets the list view to the array
-        PokemonCardPokedexAdapter pokemonCardPokedexAdapter = new PokemonCardPokedexAdapter(this, R.layout.item_pokemon_card, cards);
+        EnergyCardPokedexAdapter energyCardPokedexAdapter = new EnergyCardPokedexAdapter(this, R.layout.item_energy_card, cards);
 
-        pokedexListView.setAdapter(pokemonCardPokedexAdapter);
+        pokedexListView.setAdapter(energyCardPokedexAdapter);
 
         //Handles click on items in the list
         pokedexListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -105,16 +104,14 @@ public class PokemonLibViewActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 String name = cards.get(position).getmName();
-                String HP = cards.get(position).getmHitPoints();
-                String type = cards.get(position).getmType();
+                String desc = cards.get(position).getmDesc();
 
                 //Handles clicks dependent on mode
                 if (ViewMode) {
 
-                    Intent intent = new Intent(PokemonLibViewActivity.this, PokemonCardViewActivity.class);
+                    Intent intent = new Intent(EnergyLibViewActivity.this, EnergyCardViewActivity.class);
                     intent.putExtra("name", name);
-                    intent.putExtra("HP", HP);
-                    intent.putExtra("type", type);
+                    intent.putExtra("desc", desc);
 
                     startActivity(intent);
 
@@ -129,8 +126,7 @@ public class PokemonLibViewActivity extends AppCompatActivity {
                         String del = String.valueOf(cards.get(i).isDelete());
                         if (cards.size() > 0 && !cards.get(i).getmName().equals("") && del.equals("false")) {
                             saveData += cards.get(i).getmName() + "/" +
-                                    cards.get(i).getmHitPoints() + "/" +
-                                    cards.get(i).getmType() + "/" +
+                                    cards.get(i).getmDesc() + "/" +
                                     cards.get(i).isDelete() + "/";
                         }
                     }
@@ -138,10 +134,9 @@ public class PokemonLibViewActivity extends AppCompatActivity {
                     writeToFile(saveData, getApplicationContext());
                     loadFromFile(filename, getApplicationContext());
 
-                    Intent intent = new Intent(PokemonLibViewActivity.this, NewPokemonCardActivity.class);
+                    Intent intent = new Intent(EnergyLibViewActivity.this, NewEnergyCardActivity.class);
                     intent.putExtra("name", name);
-                    intent.putExtra("HP", HP);
-                    intent.putExtra("type", type);
+                    intent.putExtra("desc", desc);
 
                     startActivity(intent);
 
@@ -164,12 +159,11 @@ public class PokemonLibViewActivity extends AppCompatActivity {
                             for (int i = 0; i < cards.size(); i++) {
                                 String del = String.valueOf(cards.get(i).isDelete());
                                 if (cards.size() > 0 && !cards.get(i).getmName().equals("") && del.equals("false")) {
-                                        saveData += cards.get(i).getmName() + "/" +
-                                                cards.get(i).getmHitPoints() + "/" +
-                                                cards.get(i).getmType() + "/" +
-                                                cards.get(i).isDelete() + "/";
-                                    }
+                                    saveData += cards.get(i).getmName() + "/" +
+                                            cards.get(i).getmDesc() + "/" +
+                                            cards.get(i).isDelete() + "/";
                                 }
+                            }
 
                             writeToFile(saveData, getApplicationContext());
                             loadFromFile(filename, getApplicationContext());
@@ -216,10 +210,7 @@ public class PokemonLibViewActivity extends AppCompatActivity {
                     String name = str.substring(0, str.indexOf("/"));
                     str = str.substring(str.indexOf("/") + 1);
 
-                    String HP = str.substring(0, str.indexOf("/"));
-                    str = str.substring(str.indexOf("/") + 1);
-
-                    String type = str.substring(0, str.indexOf("/"));
+                    String desc = str.substring(0, str.indexOf("/"));
                     str = str.substring(str.indexOf("/") + 1);
 
                     String strDelete = str.substring(0, str.indexOf("/"));
@@ -227,11 +218,11 @@ public class PokemonLibViewActivity extends AppCompatActivity {
 
                     if( strDelete.equals("false")) {
                         if (!name.equals("null")) {
-                            cards.add(new PokemonCard(name, HP, type, false));
-                    } }
+                            cards.add(new EnergyCard(name, desc, false));
+                        } }
                 }
             }
-           isr.close();
+            isr.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

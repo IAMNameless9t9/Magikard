@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/activity_vertical_margin">
+
+    <TextView
+        android:id="@+id/newCardHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:gravity="center"
+        android:text="@string/newCardHeader"
+        android:textSize="@dimen/header_height"
+        android:layout_weight="2"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="20">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/newEnergyCardName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/newCardName"
+                android:textSize="@dimen/editTextHeight"/>
+
+            <EditText
+                android:id="@+id/newEnergyCardDesc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/newEnergyCardDesc"
+                android:textSize="@dimen/editTextHeight" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/newPokemonCardSubmitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:text="@string/newPokemonCardSubmitButton"
+        android:textSize="@dimen/button_height"
+        android:layout_gravity="center"
+        android:layout_weight="1" />
+</LinearLayout>

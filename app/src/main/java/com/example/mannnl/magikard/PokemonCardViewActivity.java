@@ -32,6 +32,12 @@ public class PokemonCardViewActivity extends AppCompatActivity {
         cardHP.setText(HP);
         cardType.setText(type);
 
-
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, PokemonLibViewActivity.class);
+        startActivity(intent);
+    }
+
 }

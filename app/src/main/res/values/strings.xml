@@ -31,4 +31,5 @@
     <string name="dialogNewCard">What Type of Card?</string>
     <string name="newTrainerCardType">Type</string>
     <string name="newTrainerCardDesc">Description</string>
+    <string name="newEnergyCardDesc">Description</string>
 </resources>

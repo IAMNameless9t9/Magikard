@@ -35,7 +35,7 @@ public class TrainerLibViewActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trainer_lib_view);
+        setContentView(R.layout.activity_pokedex_lib_view);
 
 
         pokedexListView = (ListView) findViewById(R.id.pokedexListView);

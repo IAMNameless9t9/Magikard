@@ -9,34 +9,30 @@ import android.widget.TextView;
  * Created by mannnl on 11/30/2017.
  */
 
-public class TrainerCardViewActivity extends AppCompatActivity {
+public class EnergyCardViewActivity extends AppCompatActivity {
 
     TextView cardName;
-    TextView cardType;
     TextView cardDesc;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trainer_card_view);
+        setContentView(R.layout.activity_pokemon_card_view);
 
         cardName = (TextView) findViewById(R.id.cardName);
-        cardType = (TextView) findViewById(R.id.cardType);
-        cardDesc = (TextView) findViewById(R.id.cardDesc);
+        cardDesc = (TextView) findViewById(R.id.cardHP);
 
         Intent in = this.getIntent();
         String name = in.getStringExtra("name");
-        String type = in.getStringExtra("type");
         String desc = in.getStringExtra("desc");
 
         cardName.setText(name);
-        cardType.setText(type);
         cardDesc.setText(desc);
 
     }
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, TrainerLibViewActivity.class);
+        Intent intent = new Intent(this, EnergyLibViewActivity.class);
         startActivity(intent);
     }
 
