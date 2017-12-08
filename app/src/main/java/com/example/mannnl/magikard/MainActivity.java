@@ -72,13 +72,10 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_new_card) {
 
             newCardType();
-            //Intent intent = new Intent(this, NewPokemonCardActivity.class);
-            //startActivity(intent);
 
         } else if (id == R.id.nav_pokedex) {
 
-            Intent intent = new Intent(this, PokemonLibViewActivity.class);
-            startActivity(intent);
+            openPokedex();
 
         } else if (id == R.id.nav_new_deck) {
 
@@ -95,5 +92,9 @@ public class MainActivity extends AppCompatActivity
     public void newCardType() {
         DialogFragment newFragment = new NewCardTypeAlertDialog();
         newFragment.show(getSupportFragmentManager(), "newCardType");
+    }
+    public void openPokedex() {
+        DialogFragment newFragment = new PokedexOpenAlertDialog();
+        newFragment.show(getSupportFragmentManager(), "openPokedex");
     }
 }

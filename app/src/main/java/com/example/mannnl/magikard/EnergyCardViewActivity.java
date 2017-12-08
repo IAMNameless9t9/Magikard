@@ -16,10 +16,10 @@ public class EnergyCardViewActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pokemon_card_view);
+        setContentView(R.layout.activity_energy_card_view);
 
         cardName = (TextView) findViewById(R.id.cardName);
-        cardDesc = (TextView) findViewById(R.id.cardHP);
+        cardDesc = (TextView) findViewById(R.id.cardDesc);
 
         Intent in = this.getIntent();
         String name = in.getStringExtra("name");
