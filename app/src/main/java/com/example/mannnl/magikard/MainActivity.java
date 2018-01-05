@@ -79,6 +79,9 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_new_deck) {
 
+            Intent intent = new Intent(MainActivity.this, NewDeckListActivity.class);
+            startActivity(intent);
+
         } else if (id == R.id.nav_deck_list) {
 
         }
