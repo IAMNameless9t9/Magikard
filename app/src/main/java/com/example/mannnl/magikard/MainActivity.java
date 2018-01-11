@@ -84,6 +84,9 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_deck_list) {
 
+            Intent intent = new Intent(MainActivity.this, DeckListLibViewActivity.class);
+            startActivity(intent);
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

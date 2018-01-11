@@ -16,6 +16,9 @@ package com.example.mannnl.magikard;
         this.mDesc = Description;
         this.delete = delete;
     }
+    EnergyCard() {
+
+    }
 
     public String getmName() {
         return mName;

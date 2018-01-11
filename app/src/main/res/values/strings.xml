@@ -45,4 +45,5 @@
     <string name="deckViewModeHint">Tap a deck to view it\'s contents.</string>
     <string name="deckEditModeHint">Tap a deck to edit it\'s information, tap view to edit it\'s contents.</string>
     <string name="deckDeleteModeHint">Tap a deck to select it. Hold DELETE to delete selected decks.</string>
+    <string name="gettingStartedHint">Tap the drawer in the top left corner to get started!</string>
 </resources>

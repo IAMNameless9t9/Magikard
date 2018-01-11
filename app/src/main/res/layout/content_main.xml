@@ -23,6 +23,12 @@
             android:textSize="@dimen/header_height"
             android:layout_gravity="center"
             android:text="@string/greeting" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/smallTextHeight"
+            android:layout_gravity="center"
+            android:text="@string/gettingStartedHint" />
 
         <ImageView
             android:id="@+id/mainLogo"

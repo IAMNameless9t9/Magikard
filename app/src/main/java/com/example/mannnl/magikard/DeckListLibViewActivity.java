@@ -25,6 +25,9 @@ public class DeckListLibViewActivity extends AppCompatActivity {
     ArrayList<DeckList> decks = new ArrayList<>();
     private String filename = "deckLists.txt";
     private String saveData;
+    ArrayList<PokemonCard> pokemon;
+    ArrayList<TrainerCard> trainers;
+    ArrayList<EnergyCard> energy;
     Button deckListViewMode;
     Button deckListEditMode;
     Button deckListDeleteMode;
@@ -71,7 +74,7 @@ public class DeckListLibViewActivity extends AppCompatActivity {
         saveData = "";
 
         if(name != null) {
-            decks.add(new DeckList(name, format, false));
+            decks.add(new DeckList(name, format, pokemon, trainers, energy, false));
         }
         for (int i = 0; i < decks.size(); i++) {
             if (decks.size() > 0) {
@@ -215,7 +218,7 @@ public class DeckListLibViewActivity extends AppCompatActivity {
 
                     if( strDelete.equals("false")) {
                         if (!name.equals("null")) {
-                            decks.add(new DeckList(name, format, false));
+                            decks.add(new DeckList(name, format, pokemon, trainers, energy, false));
                         } }
                 }
             }

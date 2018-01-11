@@ -18,6 +18,9 @@ public class TrainerCard {
         this.mDescription = Description;
         this.delete = false;
     }
+    TrainerCard() {
+
+    }
 
     public String getmName() {
         return mName;

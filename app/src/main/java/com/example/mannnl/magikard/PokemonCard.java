@@ -18,6 +18,9 @@ package com.example.mannnl.magikard;
         this.mType = Type;
         this.delete = false;
     }
+    PokemonCard() {
+
+    }
 
     String getmName() {
         return mName;
