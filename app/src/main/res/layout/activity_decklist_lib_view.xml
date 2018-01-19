@@ -4,13 +4,21 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/deckListHeader"
+        android:id="@+id/deckName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:gravity="center"
-        android:text="@string/deckListViewHeader"
         android:textSize="@dimen/header_height"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:id="@+id/deckFormat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:gravity="center"
+        android:textSize="@dimen/mediumTextHeight"
         android:layout_weight="1"/>
 
     <TextView

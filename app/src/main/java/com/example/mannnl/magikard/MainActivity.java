@@ -104,3 +104,5 @@ public class MainActivity extends AppCompatActivity
         newFragment.show(getSupportFragmentManager(), "openPokedex");
     }
 }
+
+//TODO: when passing intents of cards passing arraylist

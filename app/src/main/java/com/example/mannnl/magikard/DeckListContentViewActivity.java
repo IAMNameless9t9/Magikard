@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,21 +18,23 @@ import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public class DeckListLibViewActivity extends AppCompatActivity {
+public class DeckListContentViewActivity extends AppCompatActivity {
 
     ListView deckListView;
-    ArrayList<DeckList> decks = new ArrayList<>();
-    private String filename = "deckLists.txt";
+    DeckList deck = new DeckList();
+    ArrayList<PokemonCard> pokemon = new ArrayList<>();
+    ArrayList<TrainerCard> trainers = new ArrayList<>();
+    ArrayList<EnergyCard> energy = new ArrayList<>();
+    private String filename;
     private String saveData;
-    ArrayList<PokemonCard> pokemon;
-    ArrayList<TrainerCard> trainers;
-    ArrayList<EnergyCard> energy;
     Button deckListViewMode;
     Button deckListEditMode;
     Button deckListDeleteMode;
     Boolean ViewMode = true;
-    Boolean EditMode = false;
+    Boolean EditMode = false; //TODO: when updating the name, make sure to change the deck filename
     Boolean DeleteMode = false;
+    TextView deckName;
+    TextView deckFormat;
     TextView instructions;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,8 @@ public class DeckListLibViewActivity extends AppCompatActivity {
         deckListViewMode = (Button) findViewById(R.id.deckListViewButton);
         deckListEditMode = (Button) findViewById(R.id.deckListEditButton);
         deckListDeleteMode = (Button) findViewById(R.id.deckListDeleteButton);
+        deckName = (TextView) findViewById(R.id.deckName);
+        deckFormat = (TextView) findViewById(R.id.deckFormat);
         instructions = (TextView) findViewById(R.id.deckListInstructions);
 
         //Initialises Button States
@@ -52,6 +55,13 @@ public class DeckListLibViewActivity extends AppCompatActivity {
         deckListEditMode.setBackgroundColor(Color.LTGRAY);
         deckListDeleteMode.setBackgroundColor(Color.LTGRAY);
         instructions.setText(R.string.deckViewModeHint);
+
+
+        Intent in = this.getIntent();
+        String name = in.getStringExtra("name");
+        String format = in.getStringExtra("format");
+
+        filename = name + "MagikardDeck.txt";
 
         //
         File file = getBaseContext().getFileStreamPath(filename);
@@ -66,25 +76,52 @@ public class DeckListLibViewActivity extends AppCompatActivity {
 
         loadFromFile(filename, getApplicationContext());
 
-        Intent in = this.getIntent();
-        String name = in.getStringExtra("name");
-        String format = in.getStringExtra("format");
+        deckName.setText(name);
+        deckFormat.setText(format);
 
         //Prepares to save information
         saveData = "";
 
+        //TODO: new read in config, two stage algorithm
+
         if(name != null) {
-            decks.add(new DeckList(name, format, pokemon, trainers, energy, false));
+            deck.setmName(name);
+            deck.setmFormat(format);
+            deck.setmPokemonCards(pokemon);
+            deck.setmTrainerCards(trainers);
+            deck.setmEnergyCards(energy);
+
+            saveData +=  name + "|" + format + "|";
         }
-        for (int i = 0; i < decks.size(); i++) {
-            if (decks.size() > 0) {
-                if (!decks.get(i).getmName().equals("")) {
-                    saveData += decks.get(i).getmName() + "|" +
-                            decks.get(i).getmFormat() + "|" +
-                            decks.get(i).isDelete() + "|";
+        for (int i = 0; i < deck.getmPokemonCards().size(); i++) {
+            if (deck.getmPokemonCards().size() > 0) {
+                if (!deck.getmPokemonCards().get(i).getmName().equals("")) {
+                    saveData += deck.getmPokemonCards().get(i).getmName() + "/"
+                            + deck.getmPokemonCards().get(i).getmHitPoints() + "/"
+                            + deck.getmPokemonCards().get(i).getmType() + "/";
                 }
             }
         }
+        saveData += "|";
+        for (int i = 0; i < deck.getmTrainerCards().size(); i++) {
+            if (deck.getmTrainerCards().size() > 0) {
+                if (!deck.getmTrainerCards().get(i).getmName().equals("")) {
+                    saveData += deck.getmTrainerCards().get(i).getmName() + "/"
+                            + deck.getmTrainerCards().get(i).getmType() + "/"
+                            + deck.getmTrainerCards().get(i).getmDescription() + "/";
+                }
+            }
+        }
+        saveData += "|";
+        for (int i = 0; i < deck.getmEnergyCards().size(); i++) {
+            if (deck.getmEnergyCards().size() > 0) {
+                if (!deck.getmEnergyCards().get(i).getmName().equals("")) {
+                    saveData += deck.getmEnergyCards().get(i).getmName() + "/"
+                            + deck.getmEnergyCards().get(i).getmDesc() + "/";
+                }
+            }
+        }
+
 
         writeToFile(saveData, getApplicationContext());
         loadFromFile(filename, getApplicationContext());
@@ -106,10 +143,11 @@ public class DeckListLibViewActivity extends AppCompatActivity {
                 String name = decks.get(position).getmName();
                 String format = decks.get(position).getmFormat();
 
-                //Handles clicks dependent on mode
+                //Handles clicks dependent on mode//TODO: Conditionals to view different types of cards, detection
                 if (ViewMode) {
 
-                    Intent intent = new Intent(DeckListLibViewActivity.this, DeckListContentViewActivity.class);
+                    Intent intent = new Intent(DeckListLibViewActivity.this, //TODO: here
+                            MainActivity.class);
                     intent.putExtra("name", name);
                     intent.putExtra("format", format);
 
@@ -127,6 +165,7 @@ public class DeckListLibViewActivity extends AppCompatActivity {
                         if (decks.size() > 0 && !decks.get(i).getmName().equals("") && del.equals("false")) {
                             saveData += decks.get(i).getmName() + "|" +
                                     decks.get(i).getmFormat() + "|" +
+                                    //TODO: here
                                     decks.get(i).isDelete() + "|";
                         }
                     }
@@ -161,6 +200,7 @@ public class DeckListLibViewActivity extends AppCompatActivity {
                                 if (decks.size() > 0 && !decks.get(i).getmName().equals("") && del.equals("false")) {
                                     saveData += decks.get(i).getmName() + "|" +
                                             decks.get(i).getmFormat() + "|" +
+                                            //TODO: here
                                             decks.get(i).isDelete() + "|";
                                 }
                             }
@@ -198,30 +238,95 @@ public class DeckListLibViewActivity extends AppCompatActivity {
     }
 
     public void loadFromFile(String fileName, Context ctx){
-        decks.clear();
+        pokemon.clear();
+        trainers.clear();
+        energy.clear();
         try {
             FileInputStream fis = ctx.openFileInput(fileName);
             InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
 
             BufferedReader in = new BufferedReader(isr);
             String str;
+            String name = "";
+            String format = "";
+            String strPokemon = "";
+            String strTrainer = "";
+            String strEnergy = "";
             if((str = in.readLine()) != null) {
                 while (str.contains("|")) {
-                    String name = str.substring(0, str.indexOf("|"));
+                    name = str.substring(0, str.indexOf("|"));
                     str = str.substring(str.indexOf("|") + 1);
 
-                    String format = str.substring(0, str.indexOf("|"));
+                    format = str.substring(0, str.indexOf("|"));
                     str = str.substring(str.indexOf("|") + 1);
 
-                    String strDelete = str.substring(0, str.indexOf("|"));
+                    strPokemon = str.substring(0, str.indexOf("|"));
                     str = str.substring(str.indexOf("|") + 1);
 
-                    if( strDelete.equals("false")) {
-                        if (!name.equals("null")) {
-                            decks.add(new DeckList(name, format, pokemon, trainers, energy, false));
-                        } }
+                    strTrainer = str.substring(0, str.indexOf("|"));
+                    str = str.substring(str.indexOf("|") + 1);
+
+                    strEnergy = str.substring(0, str.indexOf("|"));
+                    str = str.substring(str.indexOf("|") + 1);
+                }
+                deckName.setText(name);
+                deckFormat.setText(format);
+                while (strPokemon.contains("/")) {
+                    String pName = strPokemon.substring(0, strPokemon.indexOf("/"));
+                    strPokemon = strPokemon.substring(strPokemon.indexOf("/") + 1);
+
+                    String pHP = strPokemon.substring(0, strPokemon.indexOf("/"));
+                    strPokemon = strPokemon.substring(strPokemon.indexOf("/") + 1);
+
+                    String pType = strPokemon.substring(0, strPokemon.indexOf("/"));
+                    strPokemon = strPokemon.substring(strPokemon.indexOf("/") + 1);
+
+                    String pStrDelete = strPokemon.substring(0, strPokemon.indexOf("/"));
+                    strPokemon = strPokemon.substring(strPokemon.indexOf("/") + 1);
+
+                    if (pStrDelete.equals("false")) {
+                        if (!pName.equals("null")) {
+                            pokemon.add(new PokemonCard(pName, pHP, pType, false));
+                        }
+                    }
+                }
+                while (strTrainer.contains("/")) {
+                    String tName = strTrainer.substring(0, strTrainer.indexOf("/"));
+                    strPokemon = strTrainer.substring(strTrainer.indexOf("/") + 1);
+
+                    String tType = strTrainer.substring(0, strTrainer.indexOf("/"));
+                    strTrainer = strTrainer.substring(strTrainer.indexOf("/") + 1);
+
+                    String tDesc = strTrainer.substring(0, strTrainer.indexOf("/"));
+                    strTrainer = strTrainer.substring(strTrainer.indexOf("/") + 1);
+
+                    String tStrDelete = strTrainer.substring(0, strTrainer.indexOf("/"));
+                    strTrainer = strTrainer.substring(strTrainer.indexOf("/") + 1);
+
+                    if (tStrDelete.equals("false")) {
+                        if (!tName.equals("null")) {
+                            trainers.add(new TrainerCard(tName, tType, tDesc, false));
+                        }
+                    }
+                }
+                while (strEnergy.contains("/")) {
+                    String eName = strEnergy.substring(0, strEnergy.indexOf("/"));
+                    strEnergy = strEnergy.substring(strEnergy.indexOf("/") + 1);
+
+                    String eDesc = strEnergy.substring(0, strEnergy.indexOf("/"));
+                    strEnergy = strEnergy.substring(strEnergy.indexOf("/") + 1);
+
+                    String eStrDelete = strEnergy.substring(0, strEnergy.indexOf("/"));
+                    strEnergy = strEnergy.substring(strEnergy.indexOf("/") + 1);
+
+                    if (eStrDelete.equals("false")) {
+                        if (!eName.equals("null")) {
+                            energy.add(new EnergyCard(eName, eDesc, false));
+                        }
+                    }
                 }
             }
+
             isr.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -235,7 +340,7 @@ public class DeckListLibViewActivity extends AppCompatActivity {
         ViewMode = true;
         EditMode = false;
         DeleteMode = false;
-        instructions.setText(R.string.deckViewModeHint);
+        instructions.setText(R.string.contentViewModeHint);
 
     }
 
@@ -246,7 +351,7 @@ public class DeckListLibViewActivity extends AppCompatActivity {
         ViewMode = false;
         EditMode = true;
         DeleteMode = false;
-        instructions.setText(R.string.deckEditModeHint);
+        instructions.setText(R.string.contentEditModeHint);
 
     }
 
@@ -257,7 +362,7 @@ public class DeckListLibViewActivity extends AppCompatActivity {
         ViewMode = false;
         EditMode = false;
         DeleteMode = true;
-        instructions.setText(R.string.deckDeleteModeHint);
+        instructions.setText(R.string.contentDeleteModeHint);
 
     }
 

@@ -12,19 +12,23 @@ public class DeckList {
     private String mName;
     private String mFormat;
 
-    private PokemonCard mPokemonCards = new PokemonCard();
-    private TrainerCard mTrainerCards = new TrainerCard();
-    private EnergyCard mEnergyCards = new EnergyCard();
+    private ArrayList<PokemonCard> mPokemonCards;
+    private ArrayList<TrainerCard> mTrainerCards;
+    private ArrayList<EnergyCard> mEnergyCards;
 
     private boolean delete;
 
-    DeckList(String Name, String Format, PokemonCard PokemonCards, TrainerCard TrainerCards, EnergyCard EnergyCards, boolean delete){
+    DeckList(String Name, String Format, ArrayList<PokemonCard> PokemonCards, ArrayList<TrainerCard> TrainerCards, ArrayList<EnergyCard> EnergyCards, boolean delete){
         this.mName = Name;
         this.mFormat = Format;
         this.mPokemonCards = PokemonCards;
         this.mTrainerCards = TrainerCards;
         this.mEnergyCards = EnergyCards;
         this.delete = delete;
+    }
+
+    DeckList(){
+
     }
 
     public String getmName() {
@@ -43,27 +47,27 @@ public class DeckList {
         this.mFormat = mFormat;
     }
 
-    public PokemonCard getmPokemonCards() {
+    public ArrayList<PokemonCard> getmPokemonCards() {
         return mPokemonCards;
     }
 
-    public void setmPokemonCards(PokemonCard mPokemonCards) {
+    public void setmPokemonCards(ArrayList<PokemonCard> mPokemonCards) {
         this.mPokemonCards = mPokemonCards;
     }
 
-    public TrainerCard getmTrainerCards() {
+    public ArrayList<TrainerCard> getmTrainerCards() {
         return mTrainerCards;
     }
 
-    public void setmTrainerCards(TrainerCard mTrainerCards) {
+    public void setmTrainerCards(ArrayList<TrainerCard> mTrainerCards) {
         this.mTrainerCards = mTrainerCards;
     }
 
-    public EnergyCard getmEnergyCards() {
+    public ArrayList<EnergyCard> getmEnergyCards() {
         return mEnergyCards;
     }
 
-    public void setmEnergyCards(EnergyCard mEnergyCards) {
+    public void setmEnergyCards(ArrayList<EnergyCard> mEnergyCards) {
         this.mEnergyCards = mEnergyCards;
     }
 
