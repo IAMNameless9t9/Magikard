@@ -130,7 +130,7 @@ public class DeckListContentViewActivity extends AppCompatActivity {
         getIntent().removeExtra("format");
 
         //Sets the list view to the array
-        DeckListViewAdapter deckListAdapter = new DeckListViewAdapter(this, R.layout.item_decklist, decks);
+        DeckListViewAdapter deckListAdapter = new DeckListViewAdapter(this, R.layout.item_decklist, decks); //TODO: Multiple Adapters
 
         deckListView.setAdapter(deckListAdapter);
 
@@ -140,13 +140,13 @@ public class DeckListContentViewActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                String name = decks.get(position).getmName();
-                String format = decks.get(position).getmFormat();
+                String name = deck.getmName();
+                String format = deck.getmFormat();
 
                 //Handles clicks dependent on mode//TODO: Conditionals to view different types of cards, detection
                 if (ViewMode) {
 
-                    Intent intent = new Intent(DeckListLibViewActivity.this, //TODO: here
+                    Intent intent = new Intent(DeckListContentViewActivity.this, //TODO: here
                             MainActivity.class);
                     intent.putExtra("name", name);
                     intent.putExtra("format", format);
