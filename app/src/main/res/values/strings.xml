@@ -49,4 +49,5 @@
     <string name="contentViewModeHint">Tap on a card to view its information.</string>
     <string name="contentEditModeHint">Nothing to see here!</string>
     <string name="contentDeleteModeHint">Tap on a card to remove it from the deck, hold DELETE to confirm.</string>
+    <string name="deckLibHeader">Decks</string>
 </resources>

@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import java.io.BufferedReader;
@@ -17,21 +19,25 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DeckListContentViewActivity extends AppCompatActivity {
 
-    ListView deckListView;
-    DeckList deck = new DeckList();
+    ListView pokemonListView;
+    ListView trainerListView;
+    ListView energyListView;
+    LinearLayout pokemonListViewLayout;
+    LinearLayout trainerListViewLayout;
+    LinearLayout energyListViewLayout;
     ArrayList<PokemonCard> pokemon = new ArrayList<>();
     ArrayList<TrainerCard> trainers = new ArrayList<>();
     ArrayList<EnergyCard> energy = new ArrayList<>();
+    DeckList deck = new DeckList();
     private String filename;
     private String saveData;
     Button deckListViewMode;
-    Button deckListEditMode;
     Button deckListDeleteMode;
     Boolean ViewMode = true;
-    Boolean EditMode = false; //TODO: when updating the name, make sure to change the deck filename
     Boolean DeleteMode = false;
     TextView deckName;
     TextView deckFormat;
@@ -39,12 +45,16 @@ public class DeckListContentViewActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_decklist_lib_view);
+        setContentView(R.layout.activity_decklist_content_view);
 
-
-        deckListView = (ListView) findViewById(R.id.deckListView);
+        //Wire ups
+        pokemonListView = (ListView) findViewById(R.id.pokemonListView);
+        trainerListView = (ListView) findViewById(R.id.trainerListView);
+        energyListView = (ListView) findViewById(R.id.energyListView);
+        pokemonListViewLayout = (LinearLayout) findViewById(R.id.pokemonListViewLayout);
+        trainerListViewLayout = (LinearLayout) findViewById(R.id.trainerListViewLayout);
+        energyListViewLayout = (LinearLayout) findViewById(R.id.energyListViewLayout);
         deckListViewMode = (Button) findViewById(R.id.deckListViewButton);
-        deckListEditMode = (Button) findViewById(R.id.deckListEditButton);
         deckListDeleteMode = (Button) findViewById(R.id.deckListDeleteButton);
         deckName = (TextView) findViewById(R.id.deckName);
         deckFormat = (TextView) findViewById(R.id.deckFormat);
@@ -52,11 +62,10 @@ public class DeckListContentViewActivity extends AppCompatActivity {
 
         //Initialises Button States
         deckListViewMode.setBackgroundColor(Color.RED);
-        deckListEditMode.setBackgroundColor(Color.LTGRAY);
         deckListDeleteMode.setBackgroundColor(Color.LTGRAY);
         instructions.setText(R.string.deckViewModeHint);
 
-
+        //Handle intent passing from NewDeckListActivity
         Intent in = this.getIntent();
         String name = in.getStringExtra("name");
         String format = in.getStringExtra("format");
@@ -129,61 +138,38 @@ public class DeckListContentViewActivity extends AppCompatActivity {
         getIntent().removeExtra("name");
         getIntent().removeExtra("format");
 
-        //Sets the list view to the array
-        DeckListViewAdapter deckListAdapter = new DeckListViewAdapter(this, R.layout.item_decklist, decks); //TODO: Multiple Adapters
+        //Custom Adapters for various ListViews
+        PokemonCardPokedexAdapter pokemonAdapter = new PokemonCardPokedexAdapter(this, R.layout.item_pokemon_card, pokemon);
+        pokemonListView.setAdapter(pokemonAdapter);
 
-        deckListView.setAdapter(deckListAdapter);
+        TrainerCardPokedexAdapter trainerAdapter = new TrainerCardPokedexAdapter(this, R.layout.item_trainer_card, trainers);
+        trainerListView.setAdapter(trainerAdapter);
+
+        EnergyCardPokedexAdapter energyAdapter = new EnergyCardPokedexAdapter(this, R.layout.item_energy_card, energy);
+        energyListView.setAdapter(energyAdapter);
 
         //Handles click on items in the list
-        deckListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        pokemonListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                String name = deck.getmName();
-                String format = deck.getmFormat();
-
-                //Handles clicks dependent on mode//TODO: Conditionals to view different types of cards, detection
+                //Handles clicks dependent on modes
                 if (ViewMode) {
 
-                    Intent intent = new Intent(DeckListContentViewActivity.this, //TODO: here
-                            MainActivity.class);
-                    intent.putExtra("name", name);
-                    intent.putExtra("format", format);
-
-                    startActivity(intent);
-
-                }
-                if (EditMode) {
-
-                    decks.get(position).setDelete();
-
-                    saveData = "";
-
-                    for (int i = 0; i < decks.size(); i++) {
-                        String del = String.valueOf(decks.get(i).isDelete());
-                        if (decks.size() > 0 && !decks.get(i).getmName().equals("") && del.equals("false")) {
-                            saveData += decks.get(i).getmName() + "|" +
-                                    decks.get(i).getmFormat() + "|" +
-                                    //TODO: here
-                                    decks.get(i).isDelete() + "|";
-                        }
-                    }
-
-                    writeToFile(saveData, getApplicationContext());
-                    loadFromFile(filename, getApplicationContext());
-
-                    Intent intent = new Intent(DeckListLibViewActivity.this, NewDeckListActivity.class);
-                    intent.putExtra("name", name);
-                    intent.putExtra("format", format);
+                    Intent intent = new Intent(DeckListContentViewActivity.this,
+                            PokemonCardViewActivity.class);
+                    intent.putExtra("name", pokemon.get(position).getmName());
+                    intent.putExtra("HP", pokemon.get(position).getmHitPoints());
+                    intent.putExtra("type", pokemon.get(position).getmType());
 
                     startActivity(intent);
 
                 }
                 if (DeleteMode) {
 
-                    decks.get(position).setDelete();
-                    if(decks.get(position).isDelete()) {
+                    pokemon.get(position).setDelete();
+                    if(pokemon.get(position).isDelete()) {
                         parent.getChildAt(position).setBackgroundColor(Color.RED);
                     } else {
                         parent.getChildAt(position).setBackgroundColor(Color.WHITE);
@@ -195,13 +181,13 @@ public class DeckListContentViewActivity extends AppCompatActivity {
 
                             saveData = "";
 
-                            for (int i = 0; i < decks.size(); i++) {
-                                String del = String.valueOf(decks.get(i).isDelete());
-                                if (decks.size() > 0 && !decks.get(i).getmName().equals("") && del.equals("false")) {
-                                    saveData += decks.get(i).getmName() + "|" +
-                                            decks.get(i).getmFormat() + "|" +
-                                            //TODO: here
-                                            decks.get(i).isDelete() + "|";
+                            for (int i = 0; i < pokemon.size(); i++) {
+                                String del = String.valueOf(pokemon.get(i).isDelete());
+                                if (pokemon.size() > 0 && !pokemon.get(i).getmName().equals("") && del.equals("false")) {
+                                    saveData += pokemon.get(i).getmName() + "/" +
+                                            pokemon.get(i).getmHitPoints() + "/" +
+                                            pokemon.get(i).getmType() + "/" +
+                                            pokemon.get(i).isDelete() + "/";
                                 }
                             }
 
@@ -218,6 +204,134 @@ public class DeckListContentViewActivity extends AppCompatActivity {
                 }
             }
         });
+        //Handles click on items in the list
+        trainerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                //Handles clicks dependent on modes
+                if (ViewMode) {
+
+                    Intent intent = new Intent(DeckListContentViewActivity.this,
+                            TrainerCardViewActivity.class);
+                    intent.putExtra("name", trainers.get(position).getmName());
+                    intent.putExtra("type", trainers.get(position).getmType());
+                    intent.putExtra("desc", trainers.get(position).getmDescription());
+
+                    startActivity(intent);
+
+                }
+                if (DeleteMode) {
+
+                    trainers.get(position).setDelete();
+                    if(trainers.get(position).isDelete()) {
+                        parent.getChildAt(position).setBackgroundColor(Color.RED);
+                    } else {
+                        parent.getChildAt(position).setBackgroundColor(Color.WHITE);
+                    }
+
+                    deckListDeleteMode.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+
+                            saveData = "";
+
+                            for (int i = 0; i < trainers.size(); i++) {
+                                String del = String.valueOf(trainers.get(i).isDelete());
+                                if (trainers.size() > 0 && !trainers.get(i).getmName().equals("") && del.equals("false")) {
+                                    saveData += trainers.get(i).getmName() + "/" +
+                                            trainers.get(i).getmType() + "/" +
+                                            trainers.get(i).getmDescription() + "/" +
+                                            trainers.get(i).isDelete() + "/";
+                                }
+                            }
+
+                            writeToFile(saveData, getApplicationContext());
+                            loadFromFile(filename, getApplicationContext());
+
+                            Intent intent = getIntent();
+                            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            return true;
+
+                        }
+                    });
+                }
+            }
+        });
+        //Handles click on items in the list
+        energyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                //Handles clicks dependent on modes
+                if (ViewMode) {
+
+                    Intent intent = new Intent(DeckListContentViewActivity.this,
+                            EnergyCardViewActivity.class);
+                    intent.putExtra("name", energy.get(position).getmName());
+                    intent.putExtra("desc", energy.get(position).getmDesc());
+
+                    startActivity(intent);
+
+                }
+                if (DeleteMode) {
+
+                    energy.get(position).setDelete();
+                    if(energy.get(position).isDelete()) {
+                        parent.getChildAt(position).setBackgroundColor(Color.RED);
+                    } else {
+                        parent.getChildAt(position).setBackgroundColor(Color.WHITE);
+                    }
+
+                    deckListDeleteMode.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+
+                            saveData = "";
+
+                            for (int i = 0; i < energy.size(); i++) {
+                                String del = String.valueOf(energy.get(i).isDelete());
+                                if (energy.size() > 0 && !energy.get(i).getmName().equals("") && del.equals("false")) {
+                                    saveData += energy.get(i).getmName() + "/" +
+                                            energy.get(i).getmDesc() + "/" +
+                                            energy.get(i).isDelete() + "/";
+                                }
+                            }
+
+                            writeToFile(saveData, getApplicationContext());
+                            loadFromFile(filename, getApplicationContext());
+
+                            Intent intent = getIntent();
+                            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            return true;
+
+                        }
+                    });
+                }
+            }
+        });
+
+        //Dynamically sets the height of the LinearLayout that contains the ListView to be exactly as long as the list.
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        Integer width = metrics.widthPixels;
+        Integer itemHeight = 128;
+
+        Integer height = (itemHeight * pokemon.size());
+        LinearLayout.LayoutParams mParam = new LinearLayout.LayoutParams(width,height);
+        pokemonListViewLayout.setLayoutParams(mParam);
+
+        height = (itemHeight * trainers.size());
+        mParam = new LinearLayout.LayoutParams(width,height);
+        trainerListViewLayout.setLayoutParams(mParam);
+
+        height = (itemHeight * energy.size());
+        mParam = new LinearLayout.LayoutParams(width,height);
+        energyListViewLayout.setLayoutParams(mParam);
 
     }
 
@@ -335,32 +449,17 @@ public class DeckListContentViewActivity extends AppCompatActivity {
 
     public void onClickViewButton (View view) {
         deckListViewMode.setBackgroundColor(Color.RED);
-        deckListEditMode.setBackgroundColor(Color.LTGRAY);
         deckListDeleteMode.setBackgroundColor(Color.LTGRAY);
         ViewMode = true;
-        EditMode = false;
         DeleteMode = false;
         instructions.setText(R.string.contentViewModeHint);
 
     }
 
-    public void onClickEditButton (View view) {
-        deckListViewMode.setBackgroundColor(Color.LTGRAY);
-        deckListEditMode.setBackgroundColor(Color.RED);
-        deckListDeleteMode.setBackgroundColor(Color.LTGRAY);
-        ViewMode = false;
-        EditMode = true;
-        DeleteMode = false;
-        instructions.setText(R.string.contentEditModeHint);
-
-    }
-
     public void onClickDeleteButton (View view) {
         deckListViewMode.setBackgroundColor(Color.LTGRAY);
-        deckListEditMode.setBackgroundColor(Color.LTGRAY);
         deckListDeleteMode.setBackgroundColor(Color.RED);
         ViewMode = false;
-        EditMode = false;
         DeleteMode = true;
         instructions.setText(R.string.contentDeleteModeHint);
 

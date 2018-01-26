@@ -18,6 +18,8 @@ import java.util.ArrayList;
         pokedexList = cards;
     }
 
+     //TODO: Unify the adapters so that everything displays the same in ListViews
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);

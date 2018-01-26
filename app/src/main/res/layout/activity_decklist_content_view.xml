@@ -3,4 +3,134 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/deckName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:gravity="center"
+        android:textSize="@dimen/mediumTextHeight"
+        android:layout_weight="2" />
+
+    <TextView
+        android:id="@+id/deckFormat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:gravity="center"
+        android:textSize="@dimen/smallTextHeight"
+        android:layout_weight="2" />
+
+    <TextView
+        android:id="@+id/deckListInstructions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:gravity="center"
+        android:text="@string/deckListViewInstructions"
+        android:textSize="@dimen/smallTextHeight"
+        android:layout_weight="2"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="5dp"
+        android:background="#C0C0C0"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="20">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Pokemon"
+              />
+            <LinearLayout
+                android:id="@+id/pokemonListViewLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ListView
+                     android:id="@+id/pokemonListView"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Trainer"
+                />
+            <LinearLayout
+                android:id="@+id/trainerListViewLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ListView
+                    android:id="@+id/trainerListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Energy"
+                />
+            <LinearLayout
+                android:id="@+id/energyListViewLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ListView
+                    android:id="@+id/energyListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="5dp"
+        android:background="#C0C0C0"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <Button
+            android:id="@+id/deckListViewButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/deckListViewButton"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:textSize="@dimen/button_height"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:onClick="onClickViewButton"/>
+
+        <Button
+            android:id="@+id/deckListDeleteButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/deckListDeleteButton"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:textSize="@dimen/button_height"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:onClick="onClickDeleteButton" />
+
+    </LinearLayout>
+
 </LinearLayout>
