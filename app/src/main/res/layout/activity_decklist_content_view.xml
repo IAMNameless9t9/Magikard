@@ -3,23 +3,32 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/deckName"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal"
         android:gravity="center"
-        android:textSize="@dimen/mediumTextHeight"
-        android:layout_weight="2" />
+        android:layout_weight="1">
 
-    <TextView
-        android:id="@+id/deckFormat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:gravity="center"
-        android:textSize="@dimen/smallTextHeight"
-        android:layout_weight="2" />
+        <TextView
+            android:id="@+id/deckName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:textSize="@dimen/mediumTextHeight"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/deckFormat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:textSize="@dimen/smallTextHeight"
+            android:gravity="center"
+            />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/deckListInstructions"
@@ -27,9 +36,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:gravity="center"
-        android:text="@string/deckListViewInstructions"
+        android:text="@string/deckContentListViewInstructions"
         android:textSize="@dimen/smallTextHeight"
-        android:layout_weight="2"/>
+        android:layout_weight="1"
+        />
 
     <View
         android:layout_width="fill_parent"
@@ -38,20 +48,24 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="20">
+        android:layout_height="wrap_content"
+        android:layout_weight="60"
+        >
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Pokemon"
-              />
+                android:textSize="@dimen/header_height"
+                android:background="#E0E0E0"
+                />
             <LinearLayout
                 android:id="@+id/pokemonListViewLayout"
                 android:layout_width="wrap_content"
@@ -67,6 +81,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Trainer"
+                android:textSize="@dimen/header_height"
+                android:background="#E0E0E0"
                 />
             <LinearLayout
                 android:id="@+id/trainerListViewLayout"
@@ -83,6 +99,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Energy"
+                android:textSize="@dimen/header_height"
+                android:background="#E0E0E0"
                 />
             <LinearLayout
                 android:id="@+id/energyListViewLayout"

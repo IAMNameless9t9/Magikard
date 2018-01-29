@@ -65,6 +65,38 @@ public class DeckListContentViewActivity extends AppCompatActivity {
         deckListDeleteMode.setBackgroundColor(Color.LTGRAY);
         instructions.setText(R.string.deckViewModeHint);
 
+        //TODO: Remove Examples
+
+        pokemon.add(new PokemonCard("Pikachu", "70", "Lightning", false));
+        pokemon.add(new PokemonCard("Pikachu", "70", "Lightning", false));
+        pokemon.add(new PokemonCard("Pikachu", "70", "Lightning", false));
+        pokemon.add(new PokemonCard("Pikachu", "70", "Lightning", false));
+        pokemon.add(new PokemonCard("Raichu GX", "210", "Lightning", false));
+        pokemon.add(new PokemonCard("Raichu GX", "210", "Lightning", false));
+        pokemon.add(new PokemonCard("Raichu GX", "210", "Lightning", false));
+
+        trainers.add(new TrainerCard("Cynthia", "Supporter", "Shuffle-Draw", false));
+        trainers.add(new TrainerCard("Cynthia", "Supporter", "Shuffle-Draw", false));
+        trainers.add(new TrainerCard("Cynthia", "Supporter", "Shuffle-Draw", false));
+        trainers.add(new TrainerCard("Volkner", "Supporter", "Search [L]", false));
+        trainers.add(new TrainerCard("Volkner", "Supporter", "Search [L]", false));
+        trainers.add(new TrainerCard("Volkner", "Supporter", "Search [L]", false));
+
+        energy.add(new EnergyCard("Lightning", "Basic Energy", false));
+        energy.add(new EnergyCard("Lightning", "Basic Energy", false));
+        energy.add(new EnergyCard("Lightning", "Basic Energy", false));
+        energy.add(new EnergyCard("Lightning", "Basic Energy", false));
+        energy.add(new EnergyCard("Lightning", "Basic Energy", false));
+        energy.add(new EnergyCard("Lightning", "Basic Energy", false));
+        energy.add(new EnergyCard("Lightning", "Basic Energy", false));
+        energy.add(new EnergyCard("Lightning", "Basic Energy", false));
+        energy.add(new EnergyCard("Lightning", "Basic Energy", false));
+        energy.add(new EnergyCard("Lightning", "Basic Energy", false));
+        energy.add(new EnergyCard("Lightning", "Basic Energy", false));
+        energy.add(new EnergyCard("Lightning", "Basic Energy", false));
+
+        //TODO: Remove Examples
+
         //Handle intent passing from NewDeckListActivity
         Intent in = this.getIntent();
         String name = in.getStringExtra("name");
@@ -83,6 +115,7 @@ public class DeckListContentViewActivity extends AppCompatActivity {
 
         }
 
+        //TODO ERROR
         loadFromFile(filename, getApplicationContext());
 
         deckName.setText(name);
@@ -90,8 +123,6 @@ public class DeckListContentViewActivity extends AppCompatActivity {
 
         //Prepares to save information
         saveData = "";
-
-        //TODO: new read in config, two stage algorithm
 
         if(name != null) {
             deck.setmName(name);
@@ -101,6 +132,7 @@ public class DeckListContentViewActivity extends AppCompatActivity {
             deck.setmEnergyCards(energy);
 
             saveData +=  name + "|" + format + "|";
+
         }
         for (int i = 0; i < deck.getmPokemonCards().size(); i++) {
             if (deck.getmPokemonCards().size() > 0) {
@@ -130,7 +162,6 @@ public class DeckListContentViewActivity extends AppCompatActivity {
                 }
             }
         }
-
 
         writeToFile(saveData, getApplicationContext());
         loadFromFile(filename, getApplicationContext());
@@ -319,7 +350,7 @@ public class DeckListContentViewActivity extends AppCompatActivity {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         Integer width = metrics.widthPixels;
-        Integer itemHeight = 128;
+        Integer itemHeight = 82;
 
         Integer height = (itemHeight * pokemon.size());
         LinearLayout.LayoutParams mParam = new LinearLayout.LayoutParams(width,height);
@@ -352,9 +383,9 @@ public class DeckListContentViewActivity extends AppCompatActivity {
     }
 
     public void loadFromFile(String fileName, Context ctx){
-        pokemon.clear();
-        trainers.clear();
-        energy.clear();
+        //pokemon.clear();
+        //trainers.clear();
+        //energy.clear();
         try {
             FileInputStream fis = ctx.openFileInput(fileName);
             InputStreamReader isr = new InputStreamReader(fis, "UTF-8");
