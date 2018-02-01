@@ -36,8 +36,11 @@ public class TrainerCardViewActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, TrainerLibViewActivity.class);
-        startActivity(intent);
+        super.onBackPressed();
+    }
+
+    public void onClickAddButton() {
+
     }
 
 }

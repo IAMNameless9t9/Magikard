@@ -19,7 +19,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DeckListContentViewActivity extends AppCompatActivity {
 
@@ -115,7 +114,6 @@ public class DeckListContentViewActivity extends AppCompatActivity {
 
         }
 
-        //TODO ERROR
         loadFromFile(filename, getApplicationContext());
 
         deckName.setText(name);
@@ -383,6 +381,7 @@ public class DeckListContentViewActivity extends AppCompatActivity {
     }
 
     public void loadFromFile(String fileName, Context ctx){
+        //TODO: Un-comment these once addition is available
         //pokemon.clear();
         //trainers.clear();
         //energy.clear();

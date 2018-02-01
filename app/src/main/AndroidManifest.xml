@@ -63,14 +63,11 @@
             android:parentActivityName=".MainActivity"
             />
         <activity android:name=".DeckListContentViewActivity"
-            android:noHistory="true"
             android:parentActivityName=".MainActivity"
             />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
     </application>
-
-    <!-- TODO: Set the parents for card view activities to their pokedex -->
 
 </manifest>

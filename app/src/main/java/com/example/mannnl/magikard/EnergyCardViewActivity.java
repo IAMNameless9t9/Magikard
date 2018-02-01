@@ -32,8 +32,11 @@ public class EnergyCardViewActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, EnergyLibViewActivity.class);
-        startActivity(intent);
+        super.onBackPressed();
+    }
+
+    public void onClickAddButton() {
+
     }
 
 }
