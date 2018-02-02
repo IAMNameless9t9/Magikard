@@ -53,4 +53,5 @@
     <string name="deckContentListViewInstructions">Tap a Card to View its Details</string>
     <string name="addButton">Add</string>
     <string name="backButton">Back</string>
+    <string name="deckAddModeHint">\"Tap which deck you would like to add the card to.</string>
 </resources>

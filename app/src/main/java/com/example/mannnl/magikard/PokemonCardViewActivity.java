@@ -3,6 +3,7 @@ package com.example.mannnl.magikard;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -38,6 +39,8 @@ public class PokemonCardViewActivity extends AppCompatActivity {
         cardHP.setText(HP);
         cardType.setText(type);
 
+        System.out.println("IMPORTANT THING: " + name);
+
     }
 
     @Override
@@ -45,19 +48,14 @@ public class PokemonCardViewActivity extends AppCompatActivity {
             super.onBackPressed();
     }
 
-    public void onClickAddButton() {
+    public void onClickAddButton (View view) {
 
-        Intent intent = new Intent(PokemonCardViewActivity.this, DeckListLibViewActivity.class);
-        intent.putExtra("pokemonName", name);
-        intent.putExtra("pokemonHP", HP);
-        intent.putExtra("pokemonType", type);
+        Intent intent = new Intent(PokemonCardViewActivity.this, DeckListLibAddViewActivity.class);
+        intent.putExtra("pokemonName", cardName.getText());
+        intent.putExtra("pokemonHP", cardHP.getText());
+        intent.putExtra("pokemonType", cardType.getText());
         startActivity(intent);
 
-        /*
-        TODO: 1) Pass the card as an Object
-        TODO: 2) Switch to DeckListViewActivity
-        TODO: 3) Create a new "mode" that adds the passed card object to the deck object
-        */
     }
 
 }

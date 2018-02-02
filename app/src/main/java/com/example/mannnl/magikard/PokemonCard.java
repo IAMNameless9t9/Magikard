@@ -10,13 +10,20 @@ package com.example.mannnl.magikard;
     private String mHitPoints;
     private String mType;
 
-    private boolean delete;
+    private boolean delete = false;
 
     PokemonCard(String Name, String HitPoints, String Type, boolean delete){
         this.mName = Name;
         this.mHitPoints = HitPoints;
         this.mType = Type;
-        this.delete = false;
+        this.delete = delete;
+    }
+    PokemonCard(String Name, String HitPoints, String Type){
+        this.mName = Name;
+        this.mHitPoints = HitPoints;
+        this.mType = Type;
+
+        //TODO: Fix the new PokemonCard code (remove false)
     }
     PokemonCard() {
 
