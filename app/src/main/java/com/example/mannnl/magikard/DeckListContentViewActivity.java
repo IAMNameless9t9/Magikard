@@ -66,13 +66,13 @@ public class DeckListContentViewActivity extends AppCompatActivity {
 
         //TODO: Remove Examples
 
-        pokemon.add(new PokemonCard("Pikachu", "70", "Lightning", false));
-        pokemon.add(new PokemonCard("Pikachu", "70", "Lightning", false));
-        pokemon.add(new PokemonCard("Pikachu", "70", "Lightning", false));
-        pokemon.add(new PokemonCard("Pikachu", "70", "Lightning", false));
-        pokemon.add(new PokemonCard("Raichu GX", "210", "Lightning", false));
-        pokemon.add(new PokemonCard("Raichu GX", "210", "Lightning", false));
-        pokemon.add(new PokemonCard("Raichu GX", "210", "Lightning", false));
+        pokemon.add(new PokemonCard("Pikachu", "70", "Lightning"));
+        pokemon.add(new PokemonCard("Pikachu", "70", "Lightning"));
+        pokemon.add(new PokemonCard("Pikachu", "70", "Lightning"));
+        pokemon.add(new PokemonCard("Pikachu", "70", "Lightning"));
+        pokemon.add(new PokemonCard("Raichu GX", "210", "Lightning"));
+        pokemon.add(new PokemonCard("Raichu GX", "210", "Lightning"));
+        pokemon.add(new PokemonCard("Raichu GX", "210", "Lightning"));
 
         trainers.add(new TrainerCard("Cynthia", "Supporter", "Shuffle-Draw", false));
         trainers.add(new TrainerCard("Cynthia", "Supporter", "Shuffle-Draw", false));
@@ -100,6 +100,13 @@ public class DeckListContentViewActivity extends AppCompatActivity {
         Intent in = this.getIntent();
         String name = in.getStringExtra("name");
         String format = in.getStringExtra("format");
+        String pokemonName = in.getStringExtra("pokemonName");
+        String pokemonHP = in.getStringExtra("pokemonHP");
+        String pokemonType = in.getStringExtra("pokemonType");
+
+        if (pokemonName != null) {
+            pokemon.add(new PokemonCard(pokemonName, pokemonHP, pokemonType));
+        }
 
         filename = name + "MagikardDeck.txt";
 
@@ -110,7 +117,7 @@ public class DeckListContentViewActivity extends AppCompatActivity {
             Log.i("Success", "File found");
 
         } else {
-            Log.i("Error", "File not found");
+            Log.e("Error", "File not found");
 
         }
 
@@ -120,7 +127,7 @@ public class DeckListContentViewActivity extends AppCompatActivity {
         deckFormat.setText(format);
 
         //Prepares to save information
-        saveData = "";
+        saveData = ""; System.out.println("SAVEDATA: " + saveData);
 
         if(name != null) {
             deck.setmName(name);
@@ -131,6 +138,8 @@ public class DeckListContentViewActivity extends AppCompatActivity {
 
             saveData +=  name + "|" + format + "|";
 
+            System.out.println("SAVEDATA: " + saveData);
+
         }
         for (int i = 0; i < deck.getmPokemonCards().size(); i++) {
             if (deck.getmPokemonCards().size() > 0) {
@@ -139,7 +148,7 @@ public class DeckListContentViewActivity extends AppCompatActivity {
                             + deck.getmPokemonCards().get(i).getmHitPoints() + "/"
                             + deck.getmPokemonCards().get(i).getmType() + "/";
                 }
-            }
+            } System.out.println("SAVEDATA: " + saveData);
         }
         saveData += "|";
         for (int i = 0; i < deck.getmTrainerCards().size(); i++) {
@@ -149,7 +158,7 @@ public class DeckListContentViewActivity extends AppCompatActivity {
                             + deck.getmTrainerCards().get(i).getmType() + "/"
                             + deck.getmTrainerCards().get(i).getmDescription() + "/";
                 }
-            }
+            } System.out.println("SAVEDATA: " + saveData);
         }
         saveData += "|";
         for (int i = 0; i < deck.getmEnergyCards().size(); i++) {
@@ -158,7 +167,7 @@ public class DeckListContentViewActivity extends AppCompatActivity {
                     saveData += deck.getmEnergyCards().get(i).getmName() + "/"
                             + deck.getmEnergyCards().get(i).getmDesc() + "/";
                 }
-            }
+            } System.out.println("SAVEDATA: " + saveData);
         }
 
         writeToFile(saveData, getApplicationContext());
@@ -397,21 +406,22 @@ public class DeckListContentViewActivity extends AppCompatActivity {
             String strTrainer = "";
             String strEnergy = "";
             if((str = in.readLine()) != null) {
+                System.out.println("LOADDATA: " + str);
                 while (str.contains("|")) {
                     name = str.substring(0, str.indexOf("|"));
-                    str = str.substring(str.indexOf("|") + 1);
+                    str = str.substring(str.indexOf("|") + 1);System.out.println("LOADDATA: " + str);
 
                     format = str.substring(0, str.indexOf("|"));
-                    str = str.substring(str.indexOf("|") + 1);
+                    str = str.substring(str.indexOf("|") + 1);System.out.println("LOADDATA: " + str);
 
                     strPokemon = str.substring(0, str.indexOf("|"));
-                    str = str.substring(str.indexOf("|") + 1);
+                    str = str.substring(str.indexOf("|") + 1);System.out.println("LOADDATA: " + str);
 
                     strTrainer = str.substring(0, str.indexOf("|"));
-                    str = str.substring(str.indexOf("|") + 1);
+                    str = str.substring(str.indexOf("|") + 1);System.out.println("LOADDATA: " + str);
 
                     strEnergy = str.substring(0, str.indexOf("|"));
-                    str = str.substring(str.indexOf("|") + 1);
+                    str = str.substring(str.indexOf("|") + 1);System.out.println("LOADDATA: " + str);
                 }
                 deckName.setText(name);
                 deckFormat.setText(format);

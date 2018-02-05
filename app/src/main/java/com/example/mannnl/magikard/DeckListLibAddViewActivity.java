@@ -53,9 +53,9 @@ public class DeckListLibAddViewActivity extends AppCompatActivity {
         loadFromFile(filename, getApplicationContext());
 
         Intent in = this.getIntent();
-        String pokemonName = in.getStringExtra("pokemonName");
-        String pokemonHP = in.getStringExtra("pokemonHP");
-        String pokemonType = in.getStringExtra("pokemonType");
+        final String pokemonName = in.getStringExtra("pokemonName");
+        final String pokemonHP = in.getStringExtra("pokemonHP");
+        final String pokemonType = in.getStringExtra("pokemonType");
 
         pokemon.add(new PokemonCard(pokemonName, pokemonHP, pokemonType));
 
@@ -77,6 +77,11 @@ public class DeckListLibAddViewActivity extends AppCompatActivity {
                     decks.add(new DeckList(name, format, pokemon, trainers, energy, false));
 
                     Intent intent = new Intent(DeckListLibAddViewActivity.this, DeckListContentViewActivity.class);
+                    intent.putExtra("name", name);
+                    intent.putExtra("format", format);
+                    intent.putExtra("pokemonName", pokemonName);
+                    intent.putExtra("pokemonHP", pokemonHP);
+                    intent.putExtra("pokemonType", pokemonType);
                     startActivity(intent);
 
                 }
